@@ -46,8 +46,9 @@ namespace EmployeeManager.Controllers
         }
 
         // GET: current user
-        public async Task<IActionResult> DetailCurrent(int? id)
+        public async Task<IActionResult> DetailCurrent()
         {
+            var id = 1;
             if (id == null)
             {
                 return NotFound();
