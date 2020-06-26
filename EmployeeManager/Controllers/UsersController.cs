@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using EmployeeManager.Models;
 using EmployeeManager.Models.Entitys;
@@ -12,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManager.Controllers
 {
+    [Authorize]
     public class UsersController : Controller
     {
         private readonly EmployeeContext _context;
@@ -48,14 +50,14 @@ namespace EmployeeManager.Controllers
         // GET: current user
         public async Task<IActionResult> DetailCurrent()
         {
-            var id = 1;
-            if (id == null)
+            var username = User.Identity.Name;
+            if (username == null)
             {
                 return NotFound();
             }
 
             var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.UserName == username);
             if (user == null)
             {
                 return NotFound();
