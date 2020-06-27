@@ -84,6 +84,12 @@ namespace EmployeeManager.Controllers
         {
             if (ModelState.IsValid)
             {
+                var dateCheck = new DateTime(1990, 1, 1);
+                if (user.BirthDay< dateCheck)
+                {
+                    ModelState.AddModelError("BirthDay", "Date which is greater than 1900/01/01.");
+                    return View(user);
+                }
                 user.CreateDate = DateTime.Now;
                 _context.Add(user);
                 await _context.SaveChangesAsync();
@@ -122,6 +128,13 @@ namespace EmployeeManager.Controllers
 
             if (ModelState.IsValid)
             {
+                var dateCheck = new DateTime(1990, 1, 1);
+                if (user.BirthDay < dateCheck)
+                {
+                    ModelState.AddModelError("BirthDay", "Date which is greater than 1900/01/01.");
+                    return View(user);
+                }
+
                 try
                 {
                     _context.Update(user);

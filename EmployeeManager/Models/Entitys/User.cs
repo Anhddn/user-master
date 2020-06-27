@@ -15,11 +15,14 @@ namespace EmployeeManager.Models.Entitys
         [Required(ErrorMessage = "This field is requied.")]
         public string UserName { get; set; }
 
+        [Required]
         public string PassWord { get; set; }
 
         [StringLength(250, ErrorMessage = "Max letters is 250")]
         public string DisplayName { get; set; }
 
+        [Required]
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime BirthDay { get; set; }
 
         [StringLength(50, ErrorMessage = "Max letters is 50")]
