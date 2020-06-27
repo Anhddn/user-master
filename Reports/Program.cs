@@ -1,7 +1,6 @@
 ﻿using EmployeeManager.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Data.Entity.SqlServer;
 using System.Linq;
 
 namespace Reports
@@ -18,15 +17,19 @@ namespace Reports
 
 
 
-            Console.WriteLine("User manager console app");
+            Console.WriteLine("User Management Console App");
             using (EmployeeContext db = new EmployeeContext(optionsBuilder.Options))
             {
                 var totalUser = db.Users.Count();
                 var lastuserCreate = db.Users.OrderByDescending(x => x.CreateDate).FirstOrDefault();
-                var userHeightAge = db.Users.OrderByDescending(x=>x.BirthDay).FirstOrDefault();
-                Console.WriteLine($"Total User: {totalUser}");
-                Console.WriteLine($"Last User created: {lastuserCreate.UserName}");
-                Console.WriteLine($"User with hight age: {userHeightAge.UserName} - Date Of Birth: {userHeightAge.BirthDay.ToString("dd-MMM-yyyy")}");
+                var firstUserCreate = db.Users.OrderByDescending(x => x.CreateDate).LastOrDefault();
+                var userHeightAge = db.Users.OrderByDescending(x=>x.BirthDay).LastOrDefault();
+                var userYoungest = db.Users.OrderByDescending(x => x.BirthDay).FirstOrDefault();
+                Console.WriteLine($"Total user: {totalUser}");
+                Console.WriteLine($"Last user created: {lastuserCreate.UserName}");
+               // Console.WriteLine($"First user created: {firstUserCreate.UserName},Id:{firstUserCreate.Id}");
+                Console.WriteLine($"User with highest age: {userHeightAge.UserName} - Date Of Birth: {userHeightAge.BirthDay.ToString("dd-MMM-yyyy")}");
+               // Console.WriteLine($"User is youngest: {userYoungest.UserName} - Date Of Birth: {userYoungest.BirthDay.ToString("dd-MMM-yyyy")}");
             }
 
         }

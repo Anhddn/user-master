@@ -26,7 +26,7 @@ namespace EmployeeManager.Controllers
         // GET: Users
         public async Task<IActionResult> Index(int page = 1)
         {
-            var qry = _context.Users.AsNoTracking().OrderBy(p => p.DisplayName);
+            var qry = _context.Users.AsNoTracking().OrderBy(p => p.Id);
             var model = await PagingList.CreateAsync(qry, 2, page);
             return View(model);
             //return View(await ));
