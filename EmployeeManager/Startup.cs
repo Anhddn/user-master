@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using ReflectionIT.Mvc.Paging;
 
 namespace EmployeeManager
 {
@@ -30,7 +31,12 @@ namespace EmployeeManager
             // add context 
             services.AddDbContext<EmployeeContext>(options =>
            options.UseSqlServer(Configuration.GetConnectionString("SchoolContext")));
-
+            services.AddPaging(options =>
+            {
+                options.ViewName = "Bootstrap4";
+                options.HtmlIndicatorDown = " <span>&darr;</span>";
+                options.HtmlIndicatorUp = " <span>&uarr;</span>";
+            });
             //Add  authenticate using cookie referent package Microsoft.AspNetCore.Authentication.Cookies
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 

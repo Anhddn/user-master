@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-
+using ReflectionIT.Mvc.Paging;
 
 namespace EmployeeManager.Controllers
 {
@@ -24,9 +24,12 @@ namespace EmployeeManager.Controllers
         }
 
         // GET: Users
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            return View(await _context.Users.ToListAsync());
+            var qry = _context.Users.AsNoTracking().OrderBy(p => p.DisplayName);
+            var model = await PagingList.CreateAsync(qry, 2, page);
+            return View(model);
+            //return View(await ));
         }
 
         // GET: Users/Details/5
